@@ -30,7 +30,7 @@ M.default_config = {
         smart_indent_cap = true,
         priority = 1,
         repeat_linebreak = true,
-        char_on_whitespace = "▎",
+        char_on_whitespace = "▎", -- or char if char defined
     },
     whitespace = {
         highlight = "IblWhitespace",
@@ -145,6 +145,13 @@ local validate_config = function(config)
                     config.indent.char,
                     validate_char,
                     "indent.char to have a display width of 0 or 1",
+                },
+            }
+            utils.validate {
+                char_on_whitespace = {
+                    config.indent.char,
+                    validate_char,
+                    "indent.char_on_whitespace to have a display width of 0 or 1",
                 },
             }
         end
