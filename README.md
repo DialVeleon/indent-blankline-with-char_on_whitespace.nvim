@@ -1,3 +1,6 @@
+# Fork of Indent Blankline
+Added: support for config.indent.char_on_whitespace, which will be shown when there is a whitespace under the char
+
 # Indent Blankline
 
 This plugin adds indentation guides to Neovim.
