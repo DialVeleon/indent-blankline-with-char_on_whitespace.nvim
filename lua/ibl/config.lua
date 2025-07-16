@@ -147,6 +147,9 @@ local validate_config = function(config)
                     "indent.char to have a display width of 0 or 1",
                 },
             }
+            if config.indent.char_on_whitespace == nil then
+                config.indent.char_on_whitespace = config.indent.char
+            end
         end
 
         if config.indent.tab_char then
