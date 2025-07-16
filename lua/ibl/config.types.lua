@@ -44,6 +44,7 @@
 ---@field priority number?
 --- Repeat indentation guide virtual text on wrapped lines if 'breakindent' is set
 ---@field repeat_linebreak boolean?
+---@field char_on_whitespace? string
 
 ---@class ibl.config.whitespace
 --- Highlight group, or list of highlight groups, that get applied to the whitespace

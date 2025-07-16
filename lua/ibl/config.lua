@@ -30,6 +30,7 @@ M.default_config = {
         smart_indent_cap = true,
         priority = 1,
         repeat_linebreak = true,
+        char_on_whitespace = "▎",
     },
     whitespace = {
         highlight = "IblWhitespace",
@@ -131,11 +132,13 @@ local validate_config = function(config)
         utils.validate_config({
             char = { config.indent.char, { "string", "table" }, true },
             tab_char = { config.indent.tab_char, { "string", "table" }, true },
+            char_on_whitespace = { config.indent.char_on_whitespace, { "string", "table" }, true },
             highlight = { config.indent.highlight, { "string", "table" }, true },
             smart_indent_cap = { config.indent.smart_indent_cap, "boolean", true },
             priority = { config.indent.priority, "number", true },
             repeat_linebreak = { config.indent.repeat_linebreak, "boolean", true },
         }, config.indent, "ibl.config.indent")
+
         if config.indent.char then
             utils.validate {
                 char = {
@@ -145,6 +148,7 @@ local validate_config = function(config)
                 },
             }
         end
+
         if config.indent.tab_char then
             utils.validate {
                 tab_char = {
@@ -154,6 +158,17 @@ local validate_config = function(config)
                 },
             }
         end
+
+        if config.indent.char_on_whitespace then
+            utils.validate {
+                char_on_whitespace = {
+                    config.indent.char_on_whitespace,
+                    validate_char,
+                    "indent.char_on_whitespace to have a display width of 0 or 1",
+                },
+            }
+        end
+
         if type(config.indent.highlight) == "table" then
             utils.validate {
                 tab_char = {

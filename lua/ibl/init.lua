@@ -424,6 +424,10 @@ M.refresh = function(bufnr)
         local scope_end = row == scope_row_end
 
         local char_map = vt.get_char_map(config, listchars, whitespace_only, blankline)
+        local prev_line = ""
+        if row > 1 then
+            prev_line = vim.api.nvim_buf_get_lines(bufnr, row - 2, row - 1, false)[1] or ""
+        end
         local virt_text, scope_hl = vt.get(
             config,
             char_map,
@@ -432,7 +436,8 @@ M.refresh = function(bufnr)
             scope_index,
             scope_start,
             scope_end,
-            scope_col_start_single
+            scope_col_start_single,
+            line
         )
 
         -- #### set virtual text ####

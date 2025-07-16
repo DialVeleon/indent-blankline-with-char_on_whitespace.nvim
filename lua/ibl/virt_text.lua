@@ -71,7 +71,8 @@ M.get = function(
     scope_index,
     scope_start,
     scope_end,
-    scope_col_start_single
+    scope_col_start_single,
+    line_text
 )
     local scope_hl = utils.tbl_get_index(highlights.scope, scope_index)
     local indent_index = 1
@@ -84,7 +85,22 @@ M.get = function(
         local indent_hl
         local underline_hl
         local sa = scope_active
+
         local char = get_char(char_map[ws], (ws == whitespace.SPACE and i) or indent_index)
+
+        if char == config.indent.char and line_text then
+            local current_char = line_text:sub(i, i)
+            if current_char == " " then
+                char = config.indent.char_on_whitespace or char
+            end
+        end
+
+        if ws == whitespace.SPACE and line_text then
+            local current_char = line_text:sub(i, i)
+            if current_char == " " then
+                char = char_map[whitespace.SPACE] or char
+            end
+        end
 
         if indent.is_indent(ws) then
             whitespace_hl = utils.tbl_get_index(highlights.whitespace, indent_index).char
